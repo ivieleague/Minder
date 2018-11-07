@@ -46,6 +46,17 @@ class TableViewController: UITableViewController {
         
         return cell
     }
+    
+    @IBAction func unwindToGoalList(sender: UIStoryboardSegue) {
+        
+        if let sourceViewController = sender.source as? ViewController, let goal = sourceViewController.goal {
+            let newIndexPath = IndexPath(row: goals.count, section: 0)
+            
+            goals.append(goal)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+        
+    }
 
     private func loadSampleGoal() {
         

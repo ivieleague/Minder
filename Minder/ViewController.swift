@@ -45,10 +45,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-    }
-    
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         //Hide the keyboard
         goalText.resignFirstResponder()

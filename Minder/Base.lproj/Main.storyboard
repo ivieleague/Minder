@@ -118,7 +118,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pMI-zH-woD"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="1G9-Si-UiQ">
                             <connections>
-                                <action selector="saveButtonPressed:" destination="BYZ-38-t0r" id="PCr-6d-iSV"/>
+                                <segue destination="Nrt-x3-uqt" kind="unwind" unwindAction="unwindToGoalListWithSender:" id="xae-Mv-8HC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -130,13 +130,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="Nrt-x3-uqt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1936.8" y="125.4872563718141"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fko-dq-psU">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Oel-lh-T9T" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J7H-u1-pBV" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Msk-X8-JDo">
@@ -148,6 +148,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="s3I-pr-tQp"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oel-lh-T9T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1108" y="125.4872563718141"/>
         </scene>
