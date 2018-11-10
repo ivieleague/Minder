@@ -24,6 +24,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         goalText.delegate = self
         goalProgress.delegate = self
         goalIsComplete.delegate = self
+        
+        if let goal = goal {
+            goalText.text = goal.goalName
+            goalIsComplete.text = goal.goalComplete
+            goalProgress.text = goal.percentComplete
+        }
+        
+        updateSaveButtonState()
     }
     
     
@@ -45,15 +53,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         //Hide the keyboard
         goalText.resignFirstResponder()
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField){
-        
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateSaveButtonState()
+        //navigationItem.title = textField.text
     }
+    
+    private func updateSaveButtonState() {
+        // Disable the Save button if the text field is empty.
+        let text = goalText.text ?? ""
+        saveButton.isEnabled = !text.isEmpty
+    }
+
 
 }
 

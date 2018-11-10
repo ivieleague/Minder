@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import os.log
+
 
 class TableViewController: UITableViewController {
     
@@ -26,7 +28,6 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return goals.count
     }
     
@@ -47,13 +48,51 @@ class TableViewController: UITableViewController {
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        super.prepare(for: segue, sender: sender)
+        
+        switch(segue.identifier ?? "") {
+            
+        case "AddItem":
+            os_log("Adding a new meal.", log: OSLog.default, type: .debug)
+            
+        case "showDetailSegue":
+            guard let goalDetailViewController = segue.destination as? ViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedGoalCell = sender as? GoalViewCell else {
+                fatalError("Unexpected sender.")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedGoalCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedGoal = goals[indexPath.row]
+            goalDetailViewController.goal = selectedGoal
+            
+        default:
+            fatalError("Unexpected Segue Identifier")
+        }
+    }
+    
     @IBAction func unwindToGoalList(sender: UIStoryboardSegue) {
         
         if let sourceViewController = sender.source as? ViewController, let goal = sourceViewController.goal {
-            let newIndexPath = IndexPath(row: goals.count, section: 0)
             
-            goals.append(goal)
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                
+                goals[selectedIndexPath.row] = goal
+                tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
+            } else {
+                
+                let newIndexPath = IndexPath(row: goals.count, section: 0)
+                
+                goals.append(goal)
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
         
     }

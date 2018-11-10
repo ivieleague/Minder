@@ -61,6 +61,7 @@
                                     <outlet property="goalIsComplete" destination="947-ZQ-nzP" id="313-1X-Chv"/>
                                     <outlet property="goalName" destination="GpU-EJ-GYS" id="lEJ-W2-tIm"/>
                                     <outlet property="percentCompleteLabel" destination="VfV-NF-Kuk" id="yoF-z9-MHQ"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="showDetailSegue" id="gbx-HO-KVq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -115,7 +116,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="2JE-lz-r9L">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pMI-zH-woD"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pMI-zH-woD">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="BYZ-38-t0r" id="DHz-Qv-Mzd"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="1G9-Si-UiQ">
                             <connections>
                                 <segue destination="Nrt-x3-uqt" kind="unwind" unwindAction="unwindToGoalListWithSender:" id="xae-Mv-8HC"/>
@@ -150,7 +155,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oel-lh-T9T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1108" y="125.4872563718141"/>
+            <point key="canvasLocation" x="1116" y="472"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Hkk-v5-p9I">
@@ -171,4 +176,7 @@
             <point key="canvasLocation" x="-631.20000000000005" y="126.38680659670166"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gbx-HO-KVq"/>
+    </inferredMetricsTieBreakers>
 </document>
