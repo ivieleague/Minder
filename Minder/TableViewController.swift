@@ -18,8 +18,16 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadSampleGoal()
+        navigationItem.leftBarButtonItem = editButtonItem
+        
+        if let savedGoals = loadGoal() {
+            goals += savedGoals
+        }
+        else {
+                    loadSampleGoal()
+        }
     }
+
 
     // MARK: - Table view data source
 
@@ -94,6 +102,7 @@ class TableViewController: UITableViewController {
                 goals.append(goal)
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+            saveGoals()
         }
         
     }
@@ -109,5 +118,27 @@ class TableViewController: UITableViewController {
         
         goals += [goal1, goal2]
     }
-
-}
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                // Delete the row from the data source
+                goals.remove(at: indexPath.row)
+                saveGoals()
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } else if editingStyle == .insert {
+                // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            }
+        }
+    
+    private func saveGoals() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(goals, toFile: Goal.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Meals successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save meals...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadGoal() -> [Goal]?  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Goal.ArchiveURL.path) as? [Goal]
+    }}

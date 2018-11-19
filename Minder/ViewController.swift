@@ -56,7 +56,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        let isPresentingInAddGoalMode = presentingViewController is UINavigationController
+        
+        if isPresentingInAddGoalMode {
+            dismiss(animated: true, completion: nil)
+        }
+        else if let owningNavigationController = navigationController{
+            owningNavigationController.popViewController(animated: true)
+        }
+        else {
+            fatalError("The ViewController is not inside a navigation controller.")
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
